@@ -1,0 +1,95 @@
+Changes:
+
+smitty conf will be INI based. XML was a bit difficult at this time. Here's the example:
+[application]
+DaysToRemove=10
+Destructive=false
+LastModified=true
+ClearUserTemp=false
+LastAccessed=true
+LogFile=FILEZ.log
+NoParentFiles=true
+RefreshDrives=60
+
+[directories]
+CustomDirs=S:\output|*.*;s:\input|//|*.*;
+
+
+Most of the configs can be done by running Smitty and configuring it via UI. Here's a description of the configuration.
+
+[application]
+DaysToRemove - The amount of days Smitty will scan for files to search for and delete if configured. Use the slider to configure the amount of days
+Destructive - Same as ticking "Destructive". This means when the file is found, it will delete it.
+LastModified - Same as ticking "Last modified". Search files last modified based on amount of days configured.
+ClearUserTemp Same as ticking "Clean Temp Files". Will remove windows temp and user temp. FUTURE will remove app temp, updates, cache, etc.
+LastAccessed - Same as ticking "Last Accessed". Search files last access based on amount of days configured.
+LogFile - The log file you wish to use to track file searches and any other operation.
+NoParentFiles - Same as ticking "Dismiss parent files". This means the directory you chose will ignore files within the directory, BUT all sub-directories and files under that WILL BE processed.
+RefreshDrives - the amount of seconds to refresh the drive info listview. Default is 5 minutes.
+
+[directories]
+CustomDirs=S:\output|*.*;s:\input|//|*.*;
+
+WARNING: Unless you know what you're doing, let Smitty handle the directory options.
+All directories are separated by a ";" and all search patterns are separated by a "|". 
+
+
+During search, you can RIGHT CLICK on the directory list box to DISABLE/ENABLE the searching for that directory option.
+
+
+----------------------------------------------
+FUTURE XML config
+
+The default smitty.conf file would look like this:
+
+SMITTY.CONF (default)
+specify your own with -c /c=custom.conf
+
+
+<?xml version="1.0" encoding="utf-8" ?>
+<Configuration>
+	<AppVersion>1.0.0</AppVersion>
+	<AppType>"Utility"</AppType>
+	<DaysToAction>30</DaysToAction>
+	<DirectoriesScan>
+		<DirConfig Item="1">
+		<DirPath>"c:\test"</DirPath>
+		<TypeAction>"Remove"</TypeAction>
+		<Option>"Recurse" </Option>
+		</DirConfig>		
+
+		<DirConfig Item="2">
+		<DirPath>"c:\temp"</DirPath>
+		<TypeAction>"Remove"</TypeAction>
+		<Option>"Recurse" </Option>
+		</DirConfig>		
+		
+		<DirConfig Item="3">
+		<DirPath>"c:\windows"</DirPath>
+		<TypeAction>"ReverseRecurse"</TypeAction>
+		<Option>""</Option>
+		</DirConfig>				
+		
+		<DirConfig Item="4">
+		<DirPath>"c:\abc123"</DirPath>
+		<TypeAction>"ReverseRecurse"</TypeAction>
+		<Option>""</Option>
+		</DirConfig>				
+		
+		<DirConfig Item="4">
+		<DirPath>"c:\opt_cm"</DirPath>
+		<TypeAction>"ReverseRecurse"</TypeAction>
+		<Option>""</Option>
+		</DirConfig>				
+	</DirectoriesScan>				
+</Configuration>
+
+
+The configuration is in XML.
+
+<Configuration> - This is the parent configurarion for this application.
+<App Version> The version of the application.
+<DaysToAction> - How many day before actionable events take place on file/folders detected.
+<Updater> - Enable the application to auto-update.
+<DirectoriesScan> - Parent configuration area to configure directories to scan and remove.
+

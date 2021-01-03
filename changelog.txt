@@ -1,0 +1,89 @@
+Smitty is compiled with Visual Studio 2017 AND 2019 - tried and tested.
+
+May 30 2018
+Intial work.
+- Able to read/write configs
+- UI design
+- logic added to determine file/folder ages
+- logic for file/folder search
+- context menu items added
+
+May 31 2018
+- directory work
+- added delete options, but needs work for non-empty directories.
+- added logic for TNA (taskbar notification applications)
+- added resources for icons
+- added ability to log files after listbox is updated with found files. This needs to be placed during searching instead of after.
+- added context menu during TNA operations
+
+June 13 2018
+- UI designed enough for functionality. UI changes are not permanent. 
+- configuration file designed for flexibility.
+- options to add multiple folders to remove after detection of age.
+- detects drives and give information on them. Also gives user ability to explore. A clean functionality will be implemented soon. 
+- XML being designed, but INI file based configuration is used at this time.
+- UI responses can store options in INI file
+- Folder/File enumeration completed, tested with removal based on creation/modified/last access.
+- Limited exception handling. Will implement more in future.
+- Needs to be tested on non-production servers with sample files. Testing currently on development machine for functionality at the moment. 
+
+June 21 2018
+- cleaned up output for drive info space reports.
+- fixed files/dirs found
+- timer ticker for 0 hundred hours to begin cleaning operations.
+- Added directory exceptions in case user enters one wrong, or if the configuration file has a directory that doesn't exist.
+- added extra message pump manipulators since current find code is blocking.
+- Small square button correctly erases files processed than the configured dirs/files listbox
+- contetxt menu "AutoClean" code disabled for now, but when listview is clicked it will detect if C: has been selected. If it has, "AutoClean" function will be available for that drive. Other drives such as external or network  won't have OS related temp files, etc.
+- added cancel button to cancel searches.
+- added single application mutex. 
+- added command line options. Configuration file can be configured with /cfg switch.
+- UI changes and alignments.
+- Testing on production.
+- khasta djamoro (American Ninja!)
+
+April 3 2019
+- ReadConfigs() now reads in configuration with multiple file filters. Will update the lstUserDirectoryOptions listbox.
+  For example:
+	[directories]
+	CustomDirs=C:\KILL_AT_WILL|*.*;c:\temp|*.tmp|*.chris
+- Made small UI changes to conserve space.
+
+April 4 2019
+- Added class ConfigInfo() to keep all configuation data.
+- ReadConfigs() is separate from configuring raw data. New function ReadDirOptions() does this. ReadConfigs() calls ReadDirOptions()
+- Able to remove directory and pattern specs in button2_Click_1(). Config data is updated thereafter.
+- Able to add directory and pattern specs in button1_Click_1(). Config data is updated thereafter.
+- UpdateConfigAfterAddRem() configuration file updater re-written to accomodate new data from ConfigInfo list collection class.
+- Added EnableDisableDirOptionInputUI() to manipulate user input UI during search/cancel
+
+April 25 2019
+- Acception caught for Access denied items.
+- frmMain_Load() supports command line autoclean
+- TimerTicker_01_Tick() supports cleaning temp files. It didn't before and automatic searches in previous versions skipped temp files removal.
+- ENABLE/DISABLE directory option logic for config file and UI. DisableDirOptionToolStripMenuItem_Click() and EnableDirOptionToolStripMenuItem_Click() funcs are the main APIs to support.
+- Right clicking on directory config option UI brings up option to DISABLE/ENABLE directory in current search. Since this is now supported in the config file, the command line option will use this logic as well.
+- Although command line options are supported, it is currently being re-worked for additional flags and logic to determine option parameters with flags.
+- Created GetDriveInfoStatus(() to export drive information when right clicking a drive on Drive Resources tab.
+
+June 15 2019
+- Fixed search/ops in a parent directory when Destructive mode is off then search for files in parent directory to process.
+- Fixed search patterns in textbox. User may press "Add" button or press "Enter" key while in textbox. When user manually enters pattern it will now reflect with search.
+- Separated INIFile Class into its own file.
+- Added remove option under directory config options list box
+- Change the versioning in Assemblyinfo.cs  -version set at 1.0.0.X  -where X is the build number
+
+June 29 2019
+- Added threading back in for searching. 
+- Slider (days to remove) now shows, days -> months -> years. Searching now supports for those times. If you select FIVE YEARS it will search for files that are AT LEAST five years only, ignoring anything else younger. 
+- Added an About, but boring, dialogue. The pig photo may not be free, but this is a placeholder. (note: DID get it from a free site though)
+- Added Dismiss parent files for directory you want to search in. You have the option to find the files int he parent directory or not, but anything in sub-dirs will be processed.
+
+
+June 2 2019
+- Added supprot to refresh drives on drives listview. Threading supported but in future would like to make it quicker, flicker free.
+- Cleaned up code. Separated code into classes to make code readable.
+- Fixed bug with fresh drives to support net drives.
+- Fixed directory "found" listbox out of memory issue. Resets during new search. 
+
+

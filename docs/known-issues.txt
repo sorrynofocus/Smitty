@@ -1,0 +1,96 @@
+Reported or known issues:
+
+See the end of this message for details on invoking 
+just-in-time (JIT) debugging instead of this dialog box.
+
+************** Exception Text **************
+System.IO.FileNotFoundException: Could not find file 'C:\Users\cm\AppData\Local\Temp\{87E8B0B3-8BE5-4A3E-8E78-EAF01B379A18}'.
+File name: 'C:\Users\cm\AppData\Local\Temp\{87E8B0B3-8BE5-4A3E-8E78-EAF01B379A18}'
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.File.GetAttributes(String path)
+   at Smitty.frmMain.DirFileSearchOption(String sDir, String pParam, Boolean bRecursive, Boolean bDelete)
+   at Smitty.frmMain.PerformSearchOp()
+   at Smitty.frmMain.TimerTicker_01_Tick(Object sender, EventArgs e)
+   at System.Windows.Forms.Timer.OnTick(EventArgs e)
+   at System.Windows.Forms.Timer.TimerNativeWindow.WndProc(Message& m)
+   at System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+
+
+************** Loaded Assemblies **************
+mscorlib
+    Assembly Version: 4.0.0.0
+    Win32 Version: 4.7.3362.0 built by: NET472REL1LAST_C
+    CodeBase: file:///C:/Windows/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll
+----------------------------------------
+Smitty
+    Assembly Version: 1.0.0.0
+    Win32 Version: 1.0.0.0
+    CodeBase: file:///C:/OPT_CM/SMiTTy/Smitty.exe
+----------------------------------------
+System
+    Assembly Version: 4.0.0.0
+    Win32 Version: 4.7.3362.0 built by: NET472REL1LAST_C
+    CodeBase: file:///C:/WINDOWS/Microsoft.Net/assembly/GAC_MSIL/System/v4.0_4.0.0.0__b77a5c561934e089/System.dll
+----------------------------------------
+System.Windows.Forms
+    Assembly Version: 4.0.0.0
+    Win32 Version: 4.7.3324.0 built by: NET472REL1LAST_C
+    CodeBase: file:///C:/WINDOWS/Microsoft.Net/assembly/GAC_MSIL/System.Windows.Forms/v4.0_4.0.0.0__b77a5c561934e089/System.Windows.Forms.dll
+----------------------------------------
+System.Drawing
+    Assembly Version: 4.0.0.0
+    Win32 Version: 4.7.3056.0 built by: NET472REL1
+    CodeBase: file:///C:/WINDOWS/Microsoft.Net/assembly/GAC_MSIL/System.Drawing/v4.0_4.0.0.0__b03f5f7f11d50a3a/System.Drawing.dll
+----------------------------------------
+System.Configuration
+    Assembly Version: 4.0.0.0
+    Win32 Version: 4.7.3056.0 built by: NET472REL1
+    CodeBase: file:///C:/WINDOWS/Microsoft.Net/assembly/GAC_MSIL/System.Configuration/v4.0_4.0.0.0__b03f5f7f11d50a3a/System.Configuration.dll
+----------------------------------------
+System.Core
+    Assembly Version: 4.0.0.0
+    Win32 Version: 4.7.3362.0 built by: NET472REL1LAST_C
+    CodeBase: file:///C:/WINDOWS/Microsoft.Net/assembly/GAC_MSIL/System.Core/v4.0_4.0.0.0__b77a5c561934e089/System.Core.dll
+----------------------------------------
+System.Xml
+    Assembly Version: 4.0.0.0
+    Win32 Version: 4.7.3056.0 built by: NET472REL1
+    CodeBase: file:///C:/WINDOWS/Microsoft.Net/assembly/GAC_MSIL/System.Xml/v4.0_4.0.0.0__b77a5c561934e089/System.Xml.dll
+----------------------------------------
+
+************** JIT Debugging **************
+To enable just-in-time (JIT) debugging, the .config file for this
+application or computer (machine.config) must have the
+jitDebugging value set in the system.windows.forms section.
+The application must also be compiled with debugging
+enabled.
+
+For example:
+
+<configuration>
+    <system.windows.forms jitDebugging="true" />
+</configuration>
+
+When JIT debugging is enabled, any unhandled exception
+will be sent to the JIT debugger registered on the computer
+rather than be handled by this dialog box.
+
+
+
+
+rm /etc/localtime
+ln -s /usr/share/zoneinfo/GMT /etc/localtime
+date 040511472019
+hwclock --systohc
+
+
+July 3 2019
+- If the log file is located under C:\ or attrib READONLY is set, exception is caught.
+- The X clear button beside cancel/search does't reset file/folders counters.
+- Pressing Search doesn't disable components. User can press Search again. Same with Cancel. It may indicate search is complete -WHEN IT ISN'T
+- During file/directory searches that match our time criteria, there's no indication search is still going.
+- POssible to break up the file/folder search? ideas:
+	- Search for all files/folders and when complete, then delete files/folders.
+	- Search all sub-folders (parents of sub-folders) and create Threads for those parent sub folders. Getting files could be placed on separate thread as well. Currenlty the whole dir search function is under one thread.
+- ALL conpoments need tooltips enabled and text content. For example: The X clear button is unknown.
+- Time differences : if finding files 30, it should also include files GREATER as an option. 
